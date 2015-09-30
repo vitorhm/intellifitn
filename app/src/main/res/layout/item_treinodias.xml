@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
+
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        card_view:cardCornerRadius="1dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Space
+                android:id="@+id/sp_top"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"/>
+
+            <ImageView
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="1dp"
+                android:layout_below="@id/sp_top"
+                android:src="@drawable/ic_calendar_grey600_18dp"
+                android:alpha="0.5"
+                android:id="@+id/iv_dia" />
+
+            <TextView
+                android:id="@+id/tv_dia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/iv_dia"
+                android:layout_below="@id/sp_top"
+                android:textSize="12sp"
+                android:alpha="0.5"
+                android:text="Segunda"/>
+
+            <Space
+                android:id="@+id/sp_header"
+                android:layout_below="@id/tv_dia"
+                android:layout_width="match_parent"
+                android:layout_height="7dp"/>
+
+            <View
+                android:id="@+id/vw_divider"
+                android:layout_width="wrap_content"
+                android:layout_height="1.0dp"
+                android:background="@color/colorText"
+                android:alpha="0.12"
+                android:layout_below="@+id/sp_header"
+                android:layout_alignParentLeft="true" />
+
+            <Space
+                android:id="@+id/sp_exercicio"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:layout_below="@id/vw_divider"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_below="@id/sp_exercicio"
+                android:id="@+id/rv_exercicios"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <Space
+                android:id="@+id/sp_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:layout_below="@id/rv_exercicios" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

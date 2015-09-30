@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">IntelliFitn</string>
+    <string name="title_activity_cons_treino">Training</string>
+    <string name="action_cadastro">New</string>
+    <string name="action_settings">Settings</string>
+</resources>

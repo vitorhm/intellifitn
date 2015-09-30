@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    style="@style/AppTheme">
+
+    <Space
+        android:id="@+id/sp_top"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
+
+    <ImageView
+        android:id="@+id/iv_grupomusc"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/sp_top"
+        android:layout_marginTop="5dp"/>
+
+    <TextView
+        android:id="@+id/tv_exercicio"
+        android:layout_toRightOf="@id/iv_grupomusc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sp_top"
+        android:textSize="14sp"
+        android:text="Peck Deck"
+        android:layout_marginLeft="5dp"/>
+
+    <TextView
+        android:id="@+id/tv_serrep"
+        android:layout_alignLeft="@id/tv_exercicio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_exercicio"
+        android:textSize="12sp"
+        android:alpha="0.4"
+        android:text="3x10" />
+
+    <TextView
+        android:id="@+id/tv_intervalo"
+        android:layout_alignLeft="@id/tv_exercicio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_serrep"
+        android:textSize="12sp"
+        android:alpha="0.4"
+        android:text="60'" />
+
+</RelativeLayout>

@@ -1,0 +1,90 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:clickable="true"
+    android:focusable="true"
+    android:background="?android:attr/selectableItemBackground">
+        <Space
+            android:id="@+id/sp_header_exercicio"
+            android:layout_width="match_parent"
+            android:layout_height="15dp" />
+
+        <ImageView
+            android:id="@+id/iv_grupomusc"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="10dp"/>
+
+        <TextView
+            android:id="@+id/tv_descr_exerc"
+            android:layout_below="@id/sp_header_exercicio"
+            android:layout_toRightOf="@id/iv_grupomusc"
+            android:layout_marginLeft="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:alpha="0.5"
+            android:text="Supino Reto"/>
+
+        <!--<View-->
+            <!--android:id="@+id/vw_divider_exerc"-->
+            <!--android:layout_width="0px"-->
+            <!--android:layout_height="1.0dp"-->
+            <!--android:layout_below="@id/tv_descr_exerc"-->
+            <!--android:layout_alignLeft="@id/tv_descr_exerc"-->
+            <!--android:layout_alignRight="@id/tv_descr_exerc"-->
+            <!--android:background="@color/colorText"-->
+            <!--android:alpha="0.12"-->
+             <!--/>-->
+
+        <TextView
+            android:id="@+id/tv_series"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:alpha="0.8"
+            android:text="3"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@id/iv_grupomusc"
+            android:layout_below="@id/tv_descr_exerc"/>
+
+        <TextView
+            android:id="@+id/tv_mult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:alpha="0.8"
+            android:text="x"
+            android:layout_toRightOf="@id/tv_series"
+            android:layout_below="@id/tv_descr_exerc"/>
+
+        <TextView
+            android:id="@+id/tv_repeticao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:alpha="0.8"
+            android:text="10"
+            android:layout_toRightOf="@id/tv_mult"
+            android:layout_below="@id/tv_descr_exerc"/>
+
+        <Space
+            android:id="@+id/sp_bottom_exercicio"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_below="@id/sp_header_exercicio" />
+
+        <View
+            android:id="@+id/vw_divider_list"
+            android:layout_width="match_parent"
+            android:layout_height="1.0dp"
+            android:background="@color/colorText"
+            android:alpha="0.12"
+            android:layout_marginTop="15dp"
+            android:layout_below="@id/tv_repeticao"
+            android:layout_alignLeft="@id/tv_descr_exerc"/>
+</RelativeLayout>

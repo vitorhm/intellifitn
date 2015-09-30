@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/C:/Users/Vitor/AndroidStudioProjects/IntelliFitn/floatbutton/build/intermediates/bundles/debug/res/values-sw600dp/values-sw600dp.xml -->
+    <eat-comment/>
+    <dimen name="fab_margin">24dp</dimen>
+</resources>
