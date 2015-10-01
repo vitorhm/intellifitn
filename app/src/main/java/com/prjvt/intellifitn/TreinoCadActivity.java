@@ -53,7 +53,9 @@ public class TreinoCadActivity extends ActionBarActivity implements Button.OnCli
 
         mRecyclerView = (RecyclerView) findViewById(R.id.rv_dias);
         btFloat = (ActionButton) findViewById(R.id.bt_float);
+        btFloat.setShowAnimation(ActionButton.Animations.FADE_IN);
         btFloat.setOnClickListener(this);
+        btFloat.isRippleEffectEnabled();
 
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
@@ -139,6 +141,7 @@ public class TreinoCadActivity extends ActionBarActivity implements Button.OnCli
                 toast.show();
             } else {
                 if (insereTreino()) {
+                    this.idTreino = mTreino.getId();
                     this.chamaTreinoExercicio(0, mTreino.getId());
                 }
             }
