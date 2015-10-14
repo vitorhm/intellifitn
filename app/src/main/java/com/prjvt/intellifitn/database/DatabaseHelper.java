@@ -399,6 +399,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return treino;
     }
 
+    public Dieta getDieta(int id) throws SQLException {
+        Dieta dieta = null;
+
+        if (id > 0) {
+            List<Dieta> listaDieta = getListaDieta(id);
+            if (listaDieta.size() > 0) {
+                dieta = listaDieta.get(0);
+            }
+        }
+
+        return dieta;
+    }
+
     public List<Treino> getListaTreino() throws SQLException {
         return getListaTreino(0);
     }
@@ -518,6 +531,38 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return listaTreino;
     }
 
+    public Boolean salvaAlimento(DietaHorarioLista dietaHorarioLista, int iddieta) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        try {
+            ContentValues cv = new ContentValues();
+
+            for (int i = 0; i < dietaHorarioLista.getDietaHorarioList().size(); i++) {
+                cv.clear();
+
+                cv.put(colDietaHorarioAlimento, dietaHorarioLista.getDietaHorarioList().get(i).getAlimento());
+                cv.put(colDietaHorarioIdDieta, iddieta);
+                cv.put(colDietaHorario, dietaHorarioLista.getHorario());
+
+                if (dietaHorarioLista.getDietaHorarioList().get(i).getId() > 0) {
+                    String whereClause = colDietaHorarioId + " = ?";
+                    String[] whereArgs = new String[]{dietaHorarioLista.getDietaHorarioList().get(i).getId().toString()};
+
+                    int hasUpdated = db.update(tabDietaHorario, cv, whereClause, whereArgs);
+                    if (hasUpdated == 0) {
+                        db.insert(tabDietaHorario, null, cv);
+                    }
+                } else {
+                    db.insert(tabDietaHorario, null, cv);
+                }
+            }
+
+        } finally {
+            db.close();
+        }
+
+        return true;
+    }
+
     public Boolean salvaExercicio(DiasExercicio exercicio, int idtreino) {
         SQLiteDatabase db = this.getReadableDatabase();
         try {
@@ -550,6 +595,33 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
         return true;
+    }
+
+    public Boolean salvaDieta(Dieta dieta) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        ContentValues cv = new ContentValues();
+        cv.put(colDietaNome, dieta.getDescricao());
+
+        try {
+            if (dieta.getId() > 0) {
+                String whereClause = colDietaId + " = ?";
+                String[] whereArgs = new String[]{dieta.getId().toString()};
+
+                int i = db.update(tabCadDieta, cv, whereClause, whereArgs);
+                if (i == 0) {
+                    dieta.setId((int) db.insert(tabCadDieta, null, cv));
+                }
+            } else {
+                dieta.setId((int) db.insert(tabCadDieta, null, cv));
+            }
+
+            return true;
+        } catch (Exception e) {
+            return false;
+        } finally {
+            db.close();
+        }
     }
 
     public Boolean salvaTreino(Treino treino) {

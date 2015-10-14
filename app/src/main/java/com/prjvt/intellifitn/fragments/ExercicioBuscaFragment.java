@@ -48,11 +48,9 @@ public class ExercicioBuscaFragment extends Fragment implements SearchView.OnQue
     private TextView mTextExercicio;
     private EditText mEdSerie, mEdRepeticao;
     private CardView mCardExercicio;
-    private RecyclerView mRecyclerView;
     private ListView listaExercicioBusca;
     private SearchView searchExercicio;
     private DatabaseHelper db;
-    private ArrayList<DiasExercicio> mList;
     private Integer mIdTreino, mIdExercicioDetalhe;
     private Spinner mSpinDias;
 

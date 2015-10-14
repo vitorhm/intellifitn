@@ -50,6 +50,10 @@
             android:name=".DietaCadAcitivity"
             android:label="@string/title_activity_dieta_cad_acitivity" >
         </activity>
+        <activity
+            android:name=".DietaAlimentoActivity"
+            android:label="@string/title_activity_activity_dieta_alimento" >
+        </activity>
     </application>
 
 </manifest>

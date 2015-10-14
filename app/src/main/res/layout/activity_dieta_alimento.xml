@@ -1,0 +1,143 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.prjvt.intellifitn.DietaAlimentoActivity">
+
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cv_alimento"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/md_white_1000"
+        card_view:cardCornerRadius="2dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_alimento"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/ic_vegetarianfood"
+                />
+
+            <TextView
+                android:id="@+id/tv_alimento"
+                android:layout_toRightOf="@id/iv_alimento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_marginLeft="13dp"
+                android:textSize="16sp"
+                android:alpha="0.6"
+                android:text="Alimento"/>
+
+            <RadioGroup
+                android:id="@+id/rg_tipoalimento"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iv_alimento">
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/rb_solido"
+                    android:checked="true"
+                    android:id="@+id/rb_solido"
+                    />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/rb_liquido"
+                    android:alpha="0.6"
+                    android:id="@+id/rb_liquido"
+                    />
+
+            </RadioGroup>
+
+            <com.wrapp.floatlabelededittext.FloatLabeledEditText
+                android:layout_below="@id/rg_tipoalimento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:id="@+id/ftedit_alimento">
+
+                <EditText
+                    android:hint="@string/ed_alimento"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:id="@+id/ed_alimento"
+                    android:textSize="14sp"
+                    android:maxLength="2" />
+
+            </com.wrapp.floatlabelededittext.FloatLabeledEditText>
+
+            <com.wrapp.floatlabelededittext.FloatLabeledEditText
+                android:layout_below="@id/ftedit_alimento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:id="@+id/ftedit_hora">
+
+                <EditText
+                    android:hint="@string/ed_hora"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:id="@+id/ed_hora"
+                    android:textSize="14sp"
+                    android:maxLength="2" />
+
+            </com.wrapp.floatlabelededittext.FloatLabeledEditText>
+
+            <ImageButton
+                android:id="@+id/bt_cancela"
+                android:layout_below="@id/ftedit_hora"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_margin="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/ic_cancel"
+                android:background="@drawable/ic_cancel"
+                android:alpha="0.5"
+                android:clickable="true"
+                android:focusable="true"/>
+
+            <ImageButton
+                android:id="@+id/bt_confirma"
+                android:layout_below="@id/ftedit_hora"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_margin="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_action"
+                android:background="@drawable/ic_action"
+                android:alpha="0.5"
+                android:clickable="true"
+                android:focusable="true"/>
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

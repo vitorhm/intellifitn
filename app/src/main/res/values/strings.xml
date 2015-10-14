@@ -18,9 +18,14 @@
     <string name="day_sunday">"Domingo"</string>
     <string name="rb_repeticao">"Repetições"</string>
     <string name="rb_tempo">"Tempo"</string>
+    <string name="rb_solido">"Sólido"</string>
+    <string name="rb_liquido">"Líquido"</string>
     <string name="ed_series">"Séries"</string>
+    <string name="ed_alimento">"Alimento"</string>
+    <string name="ed_hora">"Hora"</string>
     <string name="hint_activity_treino">Nenhum treino cadastrado, clique no botão "+" para iniciar.</string>
     <string name="title_activity_dieta_cad_acitivity">Cadastro de Dieta</string>
 
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_activity_dieta_alimento">Alimento</string>
 </resources>
