@@ -5,6 +5,7 @@
     <string name="action_cadastro">Cadastrar</string>
     <string name="title_activity_cons_treino">Meu Treino</string>
     <string name="title_activity_cad_treino">Novo Treino</string>
+    <string name="title_activity_cad_dieta">Nova Dieta</string>
     <string name="title_activity_treino_exercicio">Novo Exercício</string>
     <string name="search_label">Exercício</string>
     <string name="search_hint">Pesquisar Exercício</string>
@@ -19,4 +20,7 @@
     <string name="rb_tempo">"Tempo"</string>
     <string name="ed_series">"Séries"</string>
     <string name="hint_activity_treino">Nenhum treino cadastrado, clique no botão "+" para iniciar.</string>
+    <string name="title_activity_dieta_cad_acitivity">Cadastro de Dieta</string>
+
+    <string name="hello_world">Hello world!</string>
 </resources>

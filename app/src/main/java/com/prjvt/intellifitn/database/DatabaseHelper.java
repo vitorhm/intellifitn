@@ -8,6 +8,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.prjvt.intellifitn.domain.DiasExercicio;
+import com.prjvt.intellifitn.domain.Dieta;
+import com.prjvt.intellifitn.domain.DietaHorario;
+import com.prjvt.intellifitn.domain.DietaHorarioLista;
 import com.prjvt.intellifitn.domain.Exercicio;
 import com.prjvt.intellifitn.domain.ExercicioDetalhe;
 import com.prjvt.intellifitn.domain.Objetivo;
@@ -25,6 +28,20 @@ import java.util.List;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String dbName = "dbintellifitn";
+
+    // CAD_DIETA
+    public static final String tabCadDieta      = "CAD_DIETA";
+    public static final String colDietaId       = "DIETAID";
+    public static final String colDietaNome     = "DIETANOME";
+    public static final String colDietaDataLanc = "DIETADATA";
+
+    // DIETA_HORARIO
+    public static final String tabDietaHorario          = "DIETA_HORARIO";
+
+    public static final String colDietaHorarioId        = "DIETAHOR_ID";
+    public static final String colDietaHorarioIdDieta   = "DIETA_IDDIETA";
+    public static final String colDietaHorarioAlimento  = "DIETAHOR_ALIMENTO";
+    public static final String colDietaHorario          = "DIETAHOR_HORARIO";
 
     // CAD_EXERCICIO
     public static final String tabCadExercicio     = "CAD_EXERCICIO";
@@ -91,6 +108,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 colTreinoExDia + " INTEGER NOT NULL, " +
                 colTreinoExSeries + " TEXT NULL, " +
                 colTreinoExRep + " TEXT NULL)");
+
+        db.execSQL("CREATE TABLE " + tabCadDieta + " (" +
+                colDietaId + " INTEGER PRIMARY KEY, " +
+                colDietaDataLanc + " DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, " +
+                colDietaNome + " TEXT NOT NULL)");
+
+        db.execSQL("CREATE TABLE " + tabDietaHorario + " (" +
+                colDietaHorarioId + " INTEGER PRIMARY KEY, " +
+                colDietaHorarioIdDieta + " INTEGER NOT NULL, " +
+                colDietaHorarioAlimento + " TEXT NOT NULL, " +
+                colDietaHorario + " BIGINT NOT NULL)");
 
         ContentValues cv = new ContentValues();
 
@@ -267,6 +295,50 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return listaExercicios;
     }
 
+    public List<DietaHorarioLista> getDietaHorarioLista(int iddieta) {
+        Log.i("Banco", "getDietaHorarioLista()");
+        List<DietaHorarioLista> listaDietaHorario = new ArrayList<DietaHorarioLista>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT * FROM " + tabDietaHorario +
+                " WHERE " + colDietaHorarioIdDieta + " = " + iddieta +
+                " ORDER BY " + colDietaHorario;
+        Cursor cur = db.rawQuery(query,
+                new String [] {});
+
+        if (cur != null) {
+            while (cur.moveToNext()) {
+                DietaHorarioLista dietaHorarioLista = new DietaHorarioLista();
+                Long horario;
+
+                horario = cur.getLong(cur.getColumnIndex(colDietaHorario));
+                dietaHorarioLista.setHorario(horario);
+                boolean notFinish = true;
+                while (notFinish && horario == cur.getLong(cur.getColumnIndex(colDietaHorario))) {
+                    DietaHorario dietaHorario = new DietaHorario();
+
+                    if (!cur.isNull(cur.getColumnIndex(colDietaHorarioId)))
+                        dietaHorario.setId(cur.getInt(cur.getColumnIndex(colDietaHorarioId)));
+                    if (!cur.isNull(cur.getColumnIndex(colDietaHorarioAlimento)))
+                        dietaHorario.setAlimento(cur.getString(cur.getColumnIndex(colDietaHorarioAlimento)));
+                    if (!cur.isNull(cur.getColumnIndex(colDietaHorarioIdDieta)))
+                        dietaHorario.setIdDieta(cur.getInt(cur.getColumnIndex(colDietaHorarioIdDieta)));
+
+                    dietaHorarioLista.getDietaHorarioList().add(dietaHorario);
+                    notFinish = cur.moveToNext();
+                }
+
+                cur.moveToPrevious();
+                listaDietaHorario.add(dietaHorarioLista);
+            }
+
+            cur.close();
+        }
+
+        db.close();
+        return listaDietaHorario;
+    }
+
     public List<DiasExercicio> getExerciciosTreino(int idtreino) throws SQLException {
         Log.i("Banco", "getExerciciosTreino()");
         List<DiasExercicio> listaExercicios = new ArrayList<DiasExercicio>();
@@ -355,6 +427,52 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db.close();
         return objetivo;
+    }
+
+    public List<Dieta> getListaDieta(Integer id) throws  SQLException {
+        Log.i("Banco", "getListaDieta()");
+        List<Dieta> listaDieta = new ArrayList<Dieta>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cur;
+
+        String sql;
+        sql = "SELECT * FROM " + tabCadDieta;
+
+        if (id > 0) {
+            sql = sql + " WHERE " + colDietaId + " = ?";
+            cur = db.rawQuery(sql, new String [] {id.toString()});
+        } else
+            cur = db.rawQuery(sql, new String [] {});
+
+        if (cur != null) {
+            while (cur.moveToNext()) {
+                String Descr = "";
+                int Id = 0;
+                String DataLanc = "";
+
+                if (!cur.isNull(cur.getColumnIndex(colDietaNome)))
+                    Descr = cur.getString(cur.getColumnIndex(colDietaNome));
+
+                if (!cur.isNull(cur.getColumnIndex(colDietaId)))
+                    Id = cur.getInt(cur.getColumnIndex(colDietaId));
+
+                if (!cur.isNull(cur.getColumnIndex(colDietaDataLanc)))
+                    DataLanc = cur.getString(cur.getColumnIndex(colDietaDataLanc));
+
+                Dieta dieta = new Dieta();
+                dieta.setDescricao(Descr);
+                dieta.setId(Id);
+                dieta.setDataLanc(DataLanc);
+                dieta.setListaDietaHorario(getDietaHorarioLista(dieta.getId()));
+
+                listaDieta.add(dieta);
+            }
+
+            cur.close();
+        }
+
+        db.close();
+        return listaDieta;
     }
 
     private List<Treino> getListaTreino(Integer id) throws SQLException {
