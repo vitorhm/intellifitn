@@ -1,6 +1,8 @@
 package com.prjvt.intellifitn;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Icon;
@@ -33,14 +35,18 @@ import com.prjvt.intellifitn.adapters.ViewPageAdapter;
 import com.prjvt.intellifitn.database.DatabaseHelper;
 import com.prjvt.intellifitn.domain.DiasExercicio;
 import com.prjvt.intellifitn.enumerator.EDias;
+import com.prjvt.intellifitn.receiver.AlarmReceiver;
 import com.prjvt.intellifitn.slidingtab.SlidingTabLayout;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 
 public class MainActivity extends ActionBarActivity {
+
+    private PendingIntent pendingIntent;
     private Toolbar mToolBar;
     private PrimaryDrawerItem item1;
     private SecondaryDrawerItem item2, itemDieta;
@@ -84,8 +90,28 @@ public class MainActivity extends ActionBarActivity {
         tabs.setViewPager(pager);
 
         this.createDrawer();
+//        this.createAlarmManager();
 
         setSupportActionBar(mToolBar);
+    }
+
+    private void createAlarmManager() {
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.set(Calendar.MONTH, 6);
+        calendar.set(Calendar.YEAR, 2013);
+        calendar.set(Calendar.DAY_OF_MONTH, 13);
+
+        calendar.set(Calendar.HOUR_OF_DAY, 20);
+        calendar.set(Calendar.MINUTE, 48);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.AM_PM,Calendar.PM);
+
+        Intent myIntent = new Intent(MainActivity.this, AlarmReceiver.class);
+        pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, myIntent,0);
+
+        AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
     }
 
     private void createDrawer() {
