@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.bartoszlipinski.recyclerviewheader.RecyclerViewHeader;
 import com.prjvt.intellifitn.adapters.AlimentoHoraAdapter;
 import com.prjvt.intellifitn.database.DatabaseHelper;
 import com.prjvt.intellifitn.domain.Dieta;
@@ -57,6 +58,9 @@ public class DietaCadAcitivity extends AppCompatActivity implements Button.OnCli
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(llm);
         mRecyclerView.setHasFixedSize(true);
+
+//        RecyclerViewHeader header = (RecyclerViewHeader) findViewById(R.id.header);
+//        header.attachTo(mRecyclerView, true);
 
         listaDietaHorario = new ArrayList<DietaHorarioLista>();
 

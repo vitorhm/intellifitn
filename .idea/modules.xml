@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/IntelliFitn.iml" filepath="$PROJECT_DIR$/IntelliFitn.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Intellifitn.iml" filepath="$PROJECT_DIR$/Intellifitn.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/floatlabel/floatlabel.iml" filepath="$PROJECT_DIR$/floatlabel/floatlabel.iml" />
     </modules>
