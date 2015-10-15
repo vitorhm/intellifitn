@@ -21,6 +21,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 
 public class DietaAlimentoActivity extends AppCompatActivity implements Button.OnClickListener {
@@ -58,13 +59,13 @@ public class DietaAlimentoActivity extends AppCompatActivity implements Button.O
             if (dietaHorarioLista.getDietaHorarioList().size() > 0) {
                 mEdAlimento.setText(dietaHorarioLista.getDietaHorarioList().get(0).getAlimento());
 
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTimeInMillis(dietaHorarioLista.getHorario());
+                Long millis = dietaHorarioLista.getHorario();
+                String Hora = String.format("%02d:%02d",
+                        TimeUnit.MILLISECONDS.toHours(millis),
+                        TimeUnit.MILLISECONDS.toMinutes(millis) -
+                                TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)));
 
-                SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
-                Date date = sdf.parse(calendar.getTime().toString());
-
-                mEdHora.setText(date.toString());
+                mEdHora.setText(Hora);
 
                 if (dietaHorarioLista.getDietaHorarioList().get(0).getTipoAlimento() == ETipoAlimento.LIQUIDO)
                     mRgTipoAlimento.check(R.id.rb_liquido);
@@ -81,7 +82,7 @@ public class DietaAlimentoActivity extends AppCompatActivity implements Button.O
             try {
                 this.atualizaInfoAlimento();
             } catch (ParseException pe) {
-
+                pe.printStackTrace();
             }
         }
     }

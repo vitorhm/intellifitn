@@ -55,7 +55,7 @@ public class AlimentoAdapter extends RecyclerView.Adapter<AlimentoAdapter.MyView
         return mList.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView tv_alimento;
         private ImageView iv_tipoalimento;
 
@@ -64,6 +64,13 @@ public class AlimentoAdapter extends RecyclerView.Adapter<AlimentoAdapter.MyView
 
             tv_alimento = (TextView) itemView.findViewById(R.id.tv_descr_alimento);
             iv_tipoalimento = (ImageView) itemView.findViewById(R.id.iv_tipoalimento);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (itemListener != null)
+                itemListener.recyclerViewListDetailClicked(v, mPosition, this.getPosition());
         }
     }
 }

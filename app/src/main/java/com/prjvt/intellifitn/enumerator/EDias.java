@@ -96,6 +96,7 @@ public enum EDias implements Parcelable {
                                     return SEGUNDA;
     }
 
+
     public String toString(Context c) {
 
         switch (this.value) {

@@ -45,7 +45,7 @@ public class TreinoDiasAdapter extends RecyclerView.Adapter<TreinoDiasAdapter.My
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        holder.tvDia.setText(mList.get(position).getDia().toString());
+        holder.tvDia.setText(mList.get(position).getDia().toString(mContext));
 
         MyLinearLayoutManager llm = new MyLinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
         holder.rvExercicio.setLayoutManager(llm);

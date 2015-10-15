@@ -63,7 +63,127 @@
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="15dp"/>
+            android:layout_height="15dp"
+            android:id="@+id/sp_card" />
+
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/card_view"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            card_view:cardCornerRadius="1dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tv_titulo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="@color/colorPrimary"
+                    android:text="Dias da Dieta"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginLeft="22dp"
+                    android:layout_alignParentTop="true" />
+
+                <View
+                    android:id="@+id/vw_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1.0dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/colorText"
+                    android:alpha="0.12"
+                    android:layout_below="@id/tv_titulo"/>
+
+                <CheckBox
+                    android:id="@+id/ckb_segunda"
+                    android:layout_marginLeft="13dp"
+                    android:layout_marginTop="13dp"
+                    android:layout_below="@id/vw_divider"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Segunda" />
+
+                <CheckBox
+                    android:id="@+id/ckb_terca"
+                    android:layout_below="@id/vw_divider"
+                    android:layout_marginLeft="13dp"
+                    android:layout_marginTop="13dp"
+                    android:layout_toRightOf="@id/ckb_segunda"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Terça" />
+
+                <CheckBox
+                    android:id="@+id/ckb_quarta"
+                    android:layout_below="@id/vw_divider"
+                    android:layout_marginLeft="13dp"
+                    android:layout_marginTop="13dp"
+                    android:layout_toRightOf="@id/ckb_terca"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Quarta" />
+
+                <CheckBox
+                    android:id="@+id/ckb_quinta"
+                    android:layout_marginLeft="13dp"
+                    android:layout_below="@id/ckb_segunda"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Quinta" />
+
+                <CheckBox
+                    android:id="@+id/ckb_sexta"
+                    android:layout_below="@id/ckb_terca"
+                    android:layout_alignLeft="@id/ckb_terca"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sexta" />
+
+                <CheckBox
+                    android:id="@+id/ckb_sabado"
+                    android:layout_below="@id/ckb_terca"
+                    android:layout_alignLeft="@id/ckb_quarta"
+                    android:layout_toRightOf="@id/ckb_sexta"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sábado" />
+
+                <CheckBox
+                    android:id="@+id/ckb_domingo"
+                    android:layout_below="@id/ckb_quinta"
+                    android:layout_alignLeft="@id/ckb_quinta"
+                    android:layout_marginBottom="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Domingo" />
+
+            </RelativeLayout>
+
+            <!--<CheckBox-->
+                <!--android:id="@+id/chkAndroid"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Terça"-->
+                <!--android:checked="true" />-->
+
+            <!--<CheckBox-->
+                <!--android:id="@+id/chkWindows"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Quarta" />-->
+
+            <!--<CheckedTextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_margin="10dp"-->
+                <!--android:checkMark="?android:attr/listChoiceIndicatorMultiple"-->
+                <!--android:text="Terça"/>-->
+
+        </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_diasdieta"

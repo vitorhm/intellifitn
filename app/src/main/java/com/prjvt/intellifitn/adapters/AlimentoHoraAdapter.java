@@ -24,6 +24,7 @@ public class AlimentoHoraAdapter extends RecyclerView.Adapter<AlimentoHoraAdapte
     private List<DietaHorarioLista> mList;
     private LayoutInflater mLayoutInflater;
     private Context mContext;
+    private int mPosition;
     private static RecyclerViewClick.RecyclerViewClickDetailListener itemListenerDieta;
 
     public AlimentoHoraAdapter(Context c, List<DietaHorarioLista> l, RecyclerViewClick.RecyclerViewClickDetailListener itemListenerDieta) {
@@ -68,7 +69,7 @@ public class AlimentoHoraAdapter extends RecyclerView.Adapter<AlimentoHoraAdapte
         return mList.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView tv_hora;
         private RecyclerView rv_alimentos;
 
@@ -77,6 +78,13 @@ public class AlimentoHoraAdapter extends RecyclerView.Adapter<AlimentoHoraAdapte
 
             tv_hora = (TextView) itemView.findViewById(R.id.tv_hora);
             rv_alimentos = (RecyclerView) itemView.findViewById(R.id.rv_alimentos);
+        }
+
+
+        @Override
+        public void onClick(View v) {
+//            if (itemListenerDieta != null)
+//                itemListenerDieta.recyclerViewListDetailClicked(v, );
         }
     }
 }

@@ -26,8 +26,8 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="15dp"
-                android:layout_marginLeft="10dp"/>
-                <!--android:src="@drawable/ic_vegetarianfood"-->
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/ic_vegetarianfood"/>
 
 
             <TextView
@@ -44,7 +44,7 @@
             <RadioGroup
                 android:id="@+id/rg_tipoalimento"
                 android:layout_marginLeft="8dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/iv_alimento">
@@ -71,6 +71,7 @@
                 android:layout_below="@id/rg_tipoalimento"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:id="@+id/ftedit_alimento">
@@ -88,6 +89,7 @@
                 android:layout_below="@id/ftedit_alimento"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:id="@+id/ftedit_hora">
@@ -104,7 +106,7 @@
             <ImageButton
                 android:id="@+id/bt_cancela"
                 android:layout_below="@id/ftedit_hora"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginBottom="10dp"
                 android:layout_margin="15dp"
                 android:layout_width="wrap_content"
@@ -119,7 +121,7 @@
             <ImageButton
                 android:id="@+id/bt_confirma"
                 android:layout_below="@id/ftedit_hora"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginBottom="10dp"
                 android:layout_margin="15dp"
                 android:layout_width="wrap_content"

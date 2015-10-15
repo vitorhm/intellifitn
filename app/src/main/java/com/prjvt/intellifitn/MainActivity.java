@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Icon;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,9 +29,11 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.prjvt.intellifitn.adapters.ExercicioDiaAdapter;
 import com.prjvt.intellifitn.adapters.TreinoDiasAdapter;
+import com.prjvt.intellifitn.adapters.ViewPageAdapter;
 import com.prjvt.intellifitn.database.DatabaseHelper;
 import com.prjvt.intellifitn.domain.DiasExercicio;
 import com.prjvt.intellifitn.enumerator.EDias;
+import com.prjvt.intellifitn.slidingtab.SlidingTabLayout;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -42,9 +45,11 @@ public class MainActivity extends ActionBarActivity {
     private PrimaryDrawerItem item1;
     private SecondaryDrawerItem item2, itemDieta;
     private Drawer drawer;
-    private List<DiasExercicio> mListExercicio;
-    private ExercicioDiaAdapter exercicioDiaAdapter;
-    private RecyclerView mRecyclerView;
+    private ViewPager pager;
+    private ViewPageAdapter adapter;
+    private SlidingTabLayout tabs;
+    private CharSequence Titles[]={"Treino","Dieta"};
+    int Numboftabs =2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,43 +59,33 @@ public class MainActivity extends ActionBarActivity {
         mToolBar = (Toolbar) findViewById(R.id.tb_main);
         mToolBar.setTitle("IntelliFitn");
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.rv_listaexerciciodia);
-        mRecyclerView.setHasFixedSize(true);
-
-        LinearLayoutManager llm = new LinearLayoutManager(this);
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(llm);
-
-        this.createDrawer();
-        this.setListAdapter();
-
         setSupportActionBar(mToolBar);
 
-//        deleteDatabase("dbintellifitn");
-    }
+        // Creating The ViewPagerAdapter and Passing Fragment Manager, Titles fot the Tabs and Number Of Tabs.
+        adapter =  new ViewPageAdapter(getSupportFragmentManager(),Titles,Numboftabs);
 
-    private void setListAdapter() {
-        DatabaseHelper db = new DatabaseHelper(this);
-        List<DiasExercicio> temp = null;
+        // Assigning ViewPager View and setting the adapter
+        pager = (ViewPager) findViewById(R.id.pager);
+        pager.setAdapter(adapter);
 
-        try {
-            temp = db.getExerciciosDia(EDias.fromDay());
-        } catch (SQLException e) {
+        // Assiging the Sliding Tab Layout View
+        tabs = (SlidingTabLayout) findViewById(R.id.tabs);
+        tabs.setDistributeEvenly(true); // To make the Tabs Fixed set this true, This makes the tabs Space Evenly in Available width
 
-        }
+        // Setting Custom Color for the Scroll bar indicator of the Tab View
+        tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
+            @Override
+            public int getIndicatorColor(int position) {
+                return getResources().getColor(R.color.colorPrimaryDark);
+            }
+        });
 
-        if (mListExercicio == null)
-            mListExercicio = new ArrayList<DiasExercicio>();
+        // Setting the ViewPager For the SlidingTabsLayout
+        tabs.setViewPager(pager);
 
-        mListExercicio.clear();
-        mListExercicio.addAll(temp);
+        this.createDrawer();
 
-        if (exercicioDiaAdapter == null) {
-            exercicioDiaAdapter = new ExercicioDiaAdapter(this, mListExercicio, null);
-            mRecyclerView.setAdapter(exercicioDiaAdapter);
-        } else {
-            exercicioDiaAdapter.notifyDataSetChanged();
-        }
+        setSupportActionBar(mToolBar);
     }
 
     private void createDrawer() {
@@ -176,6 +171,10 @@ public class MainActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -183,6 +182,5 @@ public class MainActivity extends ActionBarActivity {
     public void onResume() {
         super.onResume();
         drawer.setSelection(item1);
-        this.setListAdapter();
     }
 }

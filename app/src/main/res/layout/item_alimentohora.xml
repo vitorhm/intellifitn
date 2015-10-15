@@ -28,26 +28,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="8dp"/>
 
-            <ImageView
-                android:layout_width="14dp"
-                android:layout_height="14dp"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="1dp"
-                android:layout_below="@id/sp_top"
-                android:alpha="0.5"
-                android:id="@+id/iv_hora" />
-                <!--android:src="@drawable/ic_clock_100"-->
+            <!--<ImageView-->
+                <!--android:layout_width="14dp"-->
+                <!--android:layout_height="14dp"-->
+                <!--android:layout_marginLeft="25dp"-->
+                <!--android:layout_marginTop="1dp"-->
+                <!--android:layout_below="@id/sp_top"-->
+                <!--android:alpha="0.5"-->
+                <!--android:id="@+id/iv_hora"-->
+                <!--android:src="@drawable/ic_clock_100"/>-->
 
             <TextView
                 android:id="@+id/tv_hora"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@id/iv_hora"
-                android:layout_below="@id/sp_top"
-                android:textSize="12sp"
-                android:alpha="0.5"
-                android:text="13:00h"/>
+                android:textSize="16sp"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="22dp"
+                android:layout_alignParentTop="true" />
 
             <Space
                 android:id="@+id/sp_header"

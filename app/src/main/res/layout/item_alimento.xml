@@ -23,11 +23,12 @@
         android:layout_below="@id/sp_header_alimento"
         android:layout_toRightOf="@id/iv_tipoalimento"
         android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:alpha="0.5"
-        android:text="Pão Integral (80g) \nPresunto (20g)\nQueijo (10g)"/>
+        android:text="Pão Integral (80g)"/>
 
     <!--<View-->
     <!--android:id="@+id/vw_divider_exerc"-->
