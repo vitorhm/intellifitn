@@ -31,13 +31,13 @@ public enum ETipoAlimento {
     }
 
     public int getImagem(Context c) {
-        switch(this.value) {
-            case 0:
-                return R.drawable.ic_wineglass;
-            case 1:
-                return R.drawable.ic_tomato_100;
-        }
+//        switch(this.value) {
+//            case 0:
+//                return R.drawable.ic_wineglass;
+//            case 1:
+//                return R.drawable.ic_tomato_100;
+//        }
 
-        return R.drawable.ic_wineglass;
+        return R.drawable.ic_arm;
     }
 }

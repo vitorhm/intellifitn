@@ -31,14 +31,12 @@ public class TreinoFragment extends Fragment implements RecyclerViewClick.Recycl
 
     private RecyclerView mRecyclerView;
     private List<Treino> mListTreino;
-    private DatabaseHelper db;
     private TextView tvHint;
     private TreinoAdapter tAdapter;
 
     public TreinoFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -65,7 +63,7 @@ public class TreinoFragment extends Fragment implements RecyclerViewClick.Recycl
             }
         });
 
-        this.setListAdapter();
+//        this.setListAdapter();
 
         return view;
     }
@@ -77,7 +75,7 @@ public class TreinoFragment extends Fragment implements RecyclerViewClick.Recycl
     }
 
     private void setListAdapter() {
-        db = new DatabaseHelper(getActivity());
+        DatabaseHelper db = new DatabaseHelper(getActivity());
         List<Treino> temp = null;
 
         try {

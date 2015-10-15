@@ -20,6 +20,7 @@ import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.holder.BadgeStyle;
+import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
@@ -39,10 +40,8 @@ import java.util.List;
 public class MainActivity extends ActionBarActivity {
     private Toolbar mToolBar;
     private PrimaryDrawerItem item1;
-    private SecondaryDrawerItem item2;
-    private IconicsDrawable icon1, icon2;
+    private SecondaryDrawerItem item2, itemDieta;
     private Drawer drawer;
-    private DatabaseHelper db;
     private List<DiasExercicio> mListExercicio;
     private ExercicioDiaAdapter exercicioDiaAdapter;
     private RecyclerView mRecyclerView;
@@ -66,10 +65,12 @@ public class MainActivity extends ActionBarActivity {
         this.setListAdapter();
 
         setSupportActionBar(mToolBar);
+
+//        deleteDatabase("dbintellifitn");
     }
 
     private void setListAdapter() {
-        db = new DatabaseHelper(this);
+        DatabaseHelper db = new DatabaseHelper(this);
         List<DiasExercicio> temp = null;
 
         try {
@@ -93,13 +94,18 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void createDrawer() {
-        icon1 = new IconicsDrawable(this)
+        IconicsDrawable icon1 = new IconicsDrawable(this)
                 .icon(GoogleMaterial.Icon.gmd_home)
                 .color(Color.GRAY)
                 .sizeDp(18);
 
-        icon2 = new IconicsDrawable(this)
+        IconicsDrawable icon2 = new IconicsDrawable(this)
                 .icon(GoogleMaterial.Icon.gmd_assessment)
+                .color(Color.GRAY)
+                .sizeDp(18);
+
+        IconicsDrawable iconDieta = new IconicsDrawable(this)
+                .icon(GoogleMaterial.Icon.gmd_local_drink)
                 .color(Color.GRAY)
                 .sizeDp(18);
 
@@ -110,8 +116,14 @@ public class MainActivity extends ActionBarActivity {
                 .withIconTintingEnabled(true);
 
         item2 = new SecondaryDrawerItem()
-                .withName("Meus Treinos")
+                .withName("Meu Treino")
                 .withIcon(icon2)
+                .withSelectedIconColorRes(R.color.colorPrimary)
+                .withIconTintingEnabled(true);
+
+        itemDieta = new SecondaryDrawerItem()
+                .withName("Minha Dieta")
+                .withIcon(iconDieta)
                 .withSelectedIconColorRes(R.color.colorPrimary)
                 .withIconTintingEnabled(true);
 
@@ -121,7 +133,9 @@ public class MainActivity extends ActionBarActivity {
                 .withHeader(R.layout.header_navigation)
                 .addDrawerItems(
                         item1,
-                        item2
+                        new DividerDrawerItem(),
+                        item2,
+                        itemDieta
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
 
@@ -133,6 +147,14 @@ public class MainActivity extends ActionBarActivity {
                             drawer.setSelection(item1);
                             drawer.closeDrawer();
                             startActivity(intent);
+                        } else {
+                            if (iDrawerItem == itemDieta) {
+                                Intent intent = new Intent(view.getContext(), DietaActivity.class);
+
+                                drawer.setSelection(item1);
+                                drawer.closeDrawer();
+                                startActivity(intent);
+                            }
                         }
                         return true;
                     }

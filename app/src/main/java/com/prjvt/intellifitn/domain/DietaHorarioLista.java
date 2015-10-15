@@ -1,5 +1,6 @@
 package com.prjvt.intellifitn.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -8,6 +9,10 @@ import java.util.List;
 public class DietaHorarioLista {
     private Long Horario;
     private List<DietaHorario> DietaHorarioList;
+
+    public DietaHorarioLista() {
+        DietaHorarioList = new ArrayList<DietaHorario>();
+    }
 
     public Long getHorario() {
         return Horario;

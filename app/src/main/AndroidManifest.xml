@@ -54,6 +54,10 @@
             android:name=".DietaAlimentoActivity"
             android:label="@string/title_activity_activity_dieta_alimento" >
         </activity>
+        <activity
+            android:name=".DietaActivity"
+            android:label="@string/title_activity_dieta" >
+        </activity>
     </application>
 
 </manifest>

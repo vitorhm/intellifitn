@@ -1,5 +1,6 @@
 package com.prjvt.intellifitn;
 
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -9,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioGroup;
+import android.widget.TimePicker;
 
 import com.prjvt.intellifitn.database.DatabaseHelper;
 import com.prjvt.intellifitn.domain.DietaHorario;
@@ -25,8 +27,9 @@ public class DietaAlimentoActivity extends AppCompatActivity implements Button.O
 
     private EditText mEdAlimento, mEdHora;
     private DatabaseHelper db;
-    private Integer mIdDieta, mIdDietaAlimento;
+    private Integer mIdDieta, mIdDietaHorario;
     private RadioGroup mRgTipoAlimento;
+    private DietaHorarioLista dietaHorarioLista;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,37 +38,58 @@ public class DietaAlimentoActivity extends AppCompatActivity implements Button.O
 
         db = new DatabaseHelper(this);
         mIdDieta = getIntent().getExtras().getInt("iddieta", 0);
+        mIdDietaHorario = getIntent().getExtras().getInt("iddietahorario", 0);
 
         mEdAlimento = (EditText) findViewById(R.id.ed_alimento);
         mEdHora = (EditText) findViewById(R.id.ed_hora);
+        mEdHora.setOnClickListener(this);
         mRgTipoAlimento = (RadioGroup) findViewById(R.id.rg_tipoalimento);
 
         ImageButton mBtCancela = (ImageButton) findViewById(R.id.bt_cancela);
         mBtCancela.setOnClickListener(this);
         ImageButton mBtConfirma = (ImageButton) findViewById(R.id.bt_confirma);
         mBtConfirma.setOnClickListener(this);
+
+        this.recuperaAlimento();
     }
 
-    private void atualizaInfoAlimento(String alimento, String hora, ETipoAlimento tipoAlimento) {
-        mEdAlimento.setText(alimento);
-        mEdHora.setText(hora);
+    private void atualizaInfoAlimento() throws ParseException {
+        if (dietaHorarioLista != null) {
+            if (dietaHorarioLista.getDietaHorarioList().size() > 0) {
+                mEdAlimento.setText(dietaHorarioLista.getDietaHorarioList().get(0).getAlimento());
 
-        if (tipoAlimento == ETipoAlimento.LIQUIDO)
-            mRgTipoAlimento.check(R.id.rb_liquido);
-        else
-            mRgTipoAlimento.check(R.id.rb_solido);
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(dietaHorarioLista.getHorario());
+
+                SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+                Date date = sdf.parse(calendar.getTime().toString());
+
+                mEdHora.setText(date.toString());
+
+                if (dietaHorarioLista.getDietaHorarioList().get(0).getTipoAlimento() == ETipoAlimento.LIQUIDO)
+                    mRgTipoAlimento.check(R.id.rb_liquido);
+                else
+                    mRgTipoAlimento.check(R.id.rb_solido);
+            }
+        }
     }
 
     private void recuperaAlimento() {
-        if (mIdDietaAlimento > 0) {
+        if (mIdDietaHorario > 0) {
+            dietaHorarioLista = db.getDietaHorario(mIdDietaHorario);
 
+            try {
+                this.atualizaInfoAlimento();
+            } catch (ParseException pe) {
+
+            }
         }
     }
 
     private Boolean insereAlimento() throws ParseException {
         DietaHorarioLista dietaHorarioLista = new DietaHorarioLista();
 
-        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
         String dateInString = mEdHora.getText().toString();
         Date date = sdf.parse(dateInString);
 
@@ -75,7 +99,7 @@ public class DietaAlimentoActivity extends AppCompatActivity implements Button.O
         dietaHorarioLista.setHorario(calendar.getTimeInMillis());
 
         DietaHorario dietaHorario = new DietaHorario();
-        dietaHorario.setId(mIdDietaAlimento);
+        dietaHorario.setId(mIdDietaHorario);
         dietaHorario.setAlimento(mEdAlimento.getText().toString());
 
         int id = mRgTipoAlimento.getCheckedRadioButtonId();
@@ -125,6 +149,21 @@ public class DietaAlimentoActivity extends AppCompatActivity implements Button.O
 
         if (id == R.id.bt_cancela) {
             finish();
+        }
+
+        if (id == R.id.ed_hora) {
+            Calendar mcurrentTime = Calendar.getInstance();
+            int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+            int minute = mcurrentTime.get(Calendar.MINUTE);
+            TimePickerDialog mTimePicker;
+            mTimePicker = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+                @Override
+                public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                    mEdHora.setText( selectedHour + ":" + String.format("%02d", selectedMinute));
+                }
+            }, hour, minute, true);//Yes 24 hour time
+            mTimePicker.setTitle("Selecione um Horário");
+            mTimePicker.show();
         }
     }
 }

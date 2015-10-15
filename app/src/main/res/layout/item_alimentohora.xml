@@ -34,9 +34,9 @@
                 android:layout_marginLeft="25dp"
                 android:layout_marginTop="1dp"
                 android:layout_below="@id/sp_top"
-                android:src="@drawable/ic_clock_100"
                 android:alpha="0.5"
                 android:id="@+id/iv_hora" />
+                <!--android:src="@drawable/ic_clock_100"-->
 
             <TextView
                 android:id="@+id/tv_hora"

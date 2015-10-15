@@ -1,5 +1,6 @@
 package com.prjvt.intellifitn;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import com.prjvt.intellifitn.adapters.AlimentoHoraAdapter;
 import com.prjvt.intellifitn.database.DatabaseHelper;
 import com.prjvt.intellifitn.domain.Dieta;
+import com.prjvt.intellifitn.domain.DietaHorario;
 import com.prjvt.intellifitn.domain.DietaHorarioLista;
 import com.prjvt.intellifitn.interfaces.RecyclerViewClick;
 import com.software.shell.fab.ActionButton;
@@ -45,13 +47,11 @@ public class DietaCadAcitivity extends AppCompatActivity implements Button.OnCli
         setSupportActionBar(mToolBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.rv_dias);
+        mRecyclerView = (RecyclerView) findViewById(R.id.rv_diasdieta);
         mEdtNome = (EditText) findViewById(R.id.ed_nomedieta);
 
         mBtFloat = (ActionButton) findViewById(R.id.bt_float);
-        mBtFloat.setShowAnimation(ActionButton.Animations.FADE_IN);
         mBtFloat.setOnClickListener(this);
-        mBtFloat.isRippleEffectEnabled();
 
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
@@ -71,6 +71,8 @@ public class DietaCadAcitivity extends AppCompatActivity implements Button.OnCli
 
             if (mDieta == null) {
                 mDieta = new Dieta();
+            } else {
+                mEdtNome.setText(mDieta.getDescricao());
             }
 
             listaDietaHorario.clear();
@@ -90,6 +92,13 @@ public class DietaCadAcitivity extends AppCompatActivity implements Button.OnCli
     private void setListAdapter() {
         tAdapter = new AlimentoHoraAdapter(this, listaDietaHorario, this);
         mRecyclerView.setAdapter(tAdapter);
+    }
+
+    private void chamaDietaAlimento(int iddietahorario, int idDieta) {
+        Intent myIntent = new Intent(this, DietaAlimentoActivity.class);
+        myIntent.putExtra("iddieta", idDieta);
+        myIntent.putExtra("iddietahorario", iddietahorario);
+        this.startActivity(myIntent);
     }
 
     @Override
@@ -118,8 +127,8 @@ public class DietaCadAcitivity extends AppCompatActivity implements Button.OnCli
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == android.R.id.home) {
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
@@ -136,7 +145,7 @@ public class DietaCadAcitivity extends AppCompatActivity implements Button.OnCli
             } else {
                 if (insereDieta()) {
                     this.idDieta = mDieta.getId();
-//                    this.chamaTreinoExercicio(0, mDieta.getId());
+                    this.chamaDietaAlimento(0, idDieta);
                 }
             }
         }
@@ -144,6 +153,7 @@ public class DietaCadAcitivity extends AppCompatActivity implements Button.OnCli
 
     @Override
     public void recyclerViewListDetailClicked(View v, int positionMaster, int positionDetail) {
-
+        DietaHorario dietaHorario = tAdapter.getDietaHorario(positionDetail, positionMaster);
+        this.chamaDietaAlimento(dietaHorario.getId(), mDieta.getId());
     }
 }

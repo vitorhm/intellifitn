@@ -17,6 +17,7 @@ import com.prjvt.intellifitn.domain.Objetivo;
 import com.prjvt.intellifitn.domain.Treino;
 import com.prjvt.intellifitn.enumerator.EDias;
 import com.prjvt.intellifitn.enumerator.EGrupoMuscular;
+import com.prjvt.intellifitn.enumerator.ETipoAlimento;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -41,6 +42,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String colDietaHorarioId        = "DIETAHOR_ID";
     public static final String colDietaHorarioIdDieta   = "DIETA_IDDIETA";
     public static final String colDietaHorarioAlimento  = "DIETAHOR_ALIMENTO";
+    public static final String colDietaHorarioTipo      = "DIETAHOR_TIPO";
     public static final String colDietaHorario          = "DIETAHOR_HORARIO";
 
     // CAD_EXERCICIO
@@ -118,6 +120,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 colDietaHorarioId + " INTEGER PRIMARY KEY, " +
                 colDietaHorarioIdDieta + " INTEGER NOT NULL, " +
                 colDietaHorarioAlimento + " TEXT NOT NULL, " +
+                colDietaHorarioTipo + " INTEGER NOT NULL, " +
                 colDietaHorario + " BIGINT NOT NULL)");
 
         ContentValues cv = new ContentValues();
@@ -295,14 +298,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return listaExercicios;
     }
 
-    public List<DietaHorarioLista> getDietaHorarioLista(int iddieta) {
+    public DietaHorarioLista getDietaHorario(int iddieta) {
+        List<DietaHorarioLista> dietaHorarioLista = this.getDietaHorarioLista(iddieta, false);
+
+        if (dietaHorarioLista.size() > 0) {
+            return dietaHorarioLista.get(0);
+        } else
+            return null;
+    }
+
+    public List<DietaHorarioLista> getDietaHorarioLista(int iddieta, Boolean buscarPorDieta) {
         Log.i("Banco", "getDietaHorarioLista()");
         List<DietaHorarioLista> listaDietaHorario = new ArrayList<DietaHorarioLista>();
         SQLiteDatabase db = this.getReadableDatabase();
 
-        String query = "SELECT * FROM " + tabDietaHorario +
-                " WHERE " + colDietaHorarioIdDieta + " = " + iddieta +
-                " ORDER BY " + colDietaHorario;
+        String query;
+        if (buscarPorDieta) {
+            query = "SELECT * FROM " + tabDietaHorario +
+                    " WHERE " + colDietaHorarioIdDieta + " = " + iddieta +
+                    " ORDER BY " + colDietaHorario;
+        } else {
+            query = "SELECT * FROM " + tabDietaHorario +
+                    " WHERE " + colDietaHorarioId + " = " + iddieta +
+                    " ORDER BY " + colDietaHorario;
+        }
+
         Cursor cur = db.rawQuery(query,
                 new String [] {});
 
@@ -323,6 +343,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         dietaHorario.setAlimento(cur.getString(cur.getColumnIndex(colDietaHorarioAlimento)));
                     if (!cur.isNull(cur.getColumnIndex(colDietaHorarioIdDieta)))
                         dietaHorario.setIdDieta(cur.getInt(cur.getColumnIndex(colDietaHorarioIdDieta)));
+                    if (!cur.isNull(cur.getColumnIndex(colDietaHorarioTipo))) {
+                        int tipo = cur.getInt(cur.getColumnIndex(colDietaHorarioTipo));
+                        dietaHorario.setTipoAlimento(ETipoAlimento.fromInteger(tipo));
+                    }
 
                     dietaHorarioLista.getDietaHorarioList().add(dietaHorario);
                     notFinish = cur.moveToNext();
@@ -442,6 +466,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return objetivo;
     }
 
+    public List<Dieta> getListaDieta() throws  SQLException {
+        return this.getListaDieta(0);
+    }
+
     public List<Dieta> getListaDieta(Integer id) throws  SQLException {
         Log.i("Banco", "getListaDieta()");
         List<Dieta> listaDieta = new ArrayList<Dieta>();
@@ -476,7 +504,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 dieta.setDescricao(Descr);
                 dieta.setId(Id);
                 dieta.setDataLanc(DataLanc);
-                dieta.setListaDietaHorario(getDietaHorarioLista(dieta.getId()));
+                dieta.setListaDietaHorario(getDietaHorarioLista(dieta.getId(), true));
 
                 listaDieta.add(dieta);
             }
@@ -541,6 +569,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
                 cv.put(colDietaHorarioAlimento, dietaHorarioLista.getDietaHorarioList().get(i).getAlimento());
                 cv.put(colDietaHorarioIdDieta, iddieta);
+                cv.put(colDietaHorarioTipo, dietaHorarioLista.getDietaHorarioList().get(i).getTipoAlimento().ordinal());
                 cv.put(colDietaHorario, dietaHorarioLista.getHorario());
 
                 if (dietaHorarioLista.getDietaHorarioList().get(i).getId() > 0) {

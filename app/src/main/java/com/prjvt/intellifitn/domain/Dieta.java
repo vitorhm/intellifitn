@@ -14,6 +14,9 @@ public class Dieta {
 
     public Dieta() {
         ListaDietaHorario = new ArrayList<DietaHorarioLista>();
+        this.Id = 0;
+        this.Descricao = "";
+        this.DataLanc = "";
     }
 
     public Integer getId() {

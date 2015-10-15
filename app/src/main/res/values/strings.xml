@@ -3,6 +3,7 @@
 
     <string name="action_settings">Opções</string>
     <string name="action_cadastro">Cadastrar</string>
+    <string name="title_activity_cons_dieta">Minha Dieta</string>
     <string name="title_activity_cons_treino">Meu Treino</string>
     <string name="title_activity_cad_treino">Novo Treino</string>
     <string name="title_activity_cad_dieta">Nova Dieta</string>
@@ -23,9 +24,11 @@
     <string name="ed_series">"Séries"</string>
     <string name="ed_alimento">"Alimento"</string>
     <string name="ed_hora">"Hora"</string>
-    <string name="hint_activity_treino">Nenhum treino cadastrado, clique no botão "+" para iniciar.</string>
+    <string name="hint_activity_treino">Nenhum treino cadastrado, clique no botão "+" para cadastrar.</string>
+    <string name="hint_activity_dieta">Nenhuma dieta cadastrada, clique no botão "+" para cadastrar.</string>
     <string name="title_activity_dieta_cad_acitivity">Cadastro de Dieta</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_activity_dieta_alimento">Alimento</string>
+    <string name="title_activity_dieta">Minha Dieta</string>
 </resources>

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.prjvt.intellifitn.R;
+import com.prjvt.intellifitn.domain.DietaHorario;
 import com.prjvt.intellifitn.domain.DietaHorarioLista;
 import com.prjvt.intellifitn.domain.MyLinearLayoutManager;
 import com.prjvt.intellifitn.interfaces.RecyclerViewClick;
@@ -32,6 +33,10 @@ public class AlimentoHoraAdapter extends RecyclerView.Adapter<AlimentoHoraAdapte
         this.itemListenerDieta = itemListenerDieta;
     }
 
+    public DietaHorario getDietaHorario(int positionDetail, int positionMaster) {
+        return mList.get(positionMaster).getDietaHorarioList().get(positionDetail);
+    }
+
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int i) {
         View v = mLayoutInflater.inflate(R.layout.item_alimentohora, parent, false);
@@ -44,12 +49,10 @@ public class AlimentoHoraAdapter extends RecyclerView.Adapter<AlimentoHoraAdapte
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Long millis = mList.get(position).getHorario();
 
-        String Hora = String.format("%02d:%02d:%02d",
+        String Hora = String.format("%02d:%02d",
                 TimeUnit.MILLISECONDS.toHours(millis),
                 TimeUnit.MILLISECONDS.toMinutes(millis) -
-                        TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)), // The change is in this line
-                TimeUnit.MILLISECONDS.toSeconds(millis) -
-                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
+                        TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)));
 
         holder.tv_hora.setText(Hora);
 

@@ -67,17 +67,6 @@ public class TreinoCadActivity extends ActionBarActivity implements Button.OnCli
         idTreino = getIntent().getExtras().getInt("idtreino", 0);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        this.recuperaTreino(idTreino);
-
-        if (tAdapter == null)
-            this.setListAdapter();
-
-        tAdapter.notifyDataSetChanged();
-    }
-
     private void recuperaTreino(int id) {
         DatabaseHelper db = new DatabaseHelper(this);
 
@@ -86,6 +75,8 @@ public class TreinoCadActivity extends ActionBarActivity implements Button.OnCli
 
             if (mTreino == null) {
                 mTreino = new Treino();
+            } else {
+                mEdtNome.setText(mTreino.getDescricao());
             }
 
             tpExercicios.clear();
@@ -112,6 +103,17 @@ public class TreinoCadActivity extends ActionBarActivity implements Button.OnCli
         myIntent.putExtra("idtreino", idtreino);
         myIntent.putExtra("idexerciciodetalhe", idexerciciodetail);
         this.startActivity(myIntent);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        this.recuperaTreino(idTreino);
+
+        if (tAdapter == null)
+            this.setListAdapter();
+
+        tAdapter.notifyDataSetChanged();
     }
 
     @Override

@@ -26,9 +26,9 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="15dp"
-                android:layout_marginLeft="10dp"
-                android:src="@drawable/ic_vegetarianfood"
-                />
+                android:layout_marginLeft="10dp"/>
+                <!--android:src="@drawable/ic_vegetarianfood"-->
+
 
             <TextView
                 android:id="@+id/tv_alimento"
@@ -79,11 +79,8 @@
                     android:hint="@string/ed_alimento"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:ems="10"
                     android:id="@+id/ed_alimento"
-                    android:textSize="14sp"
-                    android:maxLength="2" />
+                    android:textSize="14sp" />
 
             </com.wrapp.floatlabelededittext.FloatLabeledEditText>
 
@@ -99,11 +96,8 @@
                     android:hint="@string/ed_hora"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:ems="10"
                     android:id="@+id/ed_hora"
-                    android:textSize="14sp"
-                    android:maxLength="2" />
+                    android:textSize="14sp" />
 
             </com.wrapp.floatlabelededittext.FloatLabeledEditText>
 
